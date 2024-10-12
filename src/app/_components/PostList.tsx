@@ -9,7 +9,7 @@ export const PostList = ({ posts }: { posts: PostGetAllOutput }) => {
       {posts.map((post) => (
         <div key={post.id} className="group flex flex-col">
           <div className="flex justify-between text-sm text-gray-400">
-            <p>{post.name}</p>
+            <p>{post.user?.username ?? ""}</p>
             <p>{format(post.createdAt, "Pp")}</p>
           </div>
 

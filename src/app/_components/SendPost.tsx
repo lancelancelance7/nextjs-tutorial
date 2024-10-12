@@ -25,7 +25,7 @@ export const SendPost = () => {
 
   const onClick = () => {
     if (text.length === 0) return;
-    sendPost({ name: "name", text });
+    sendPost({ text });
   };
 
   return (

@@ -14,8 +14,8 @@ export const DeleteButton = ({ postId }: { postId: number }) => {
       router.refresh();
       toast.success("Post deleted");
     },
-    onError: () => {
-      toast.error("Failed to delete post");
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 

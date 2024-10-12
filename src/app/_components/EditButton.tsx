@@ -34,8 +34,8 @@ export const EditButton = ({
       setOpen(false);
       router.refresh();
     },
-    onError: () => {
-      toast.error("Failed to update post");
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 
