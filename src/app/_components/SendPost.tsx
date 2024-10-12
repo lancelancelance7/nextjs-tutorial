@@ -18,8 +18,8 @@ export const SendPost = () => {
       router.refresh();
       toast.success("Post sent");
     },
-    onError: () => {
-      toast.error("Failed to send post");
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 

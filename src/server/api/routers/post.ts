@@ -1,6 +1,10 @@
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { posts } from "~/server/db/schema";
 import type { RouterOutputs } from "~/trpc/react";
 
@@ -14,7 +18,7 @@ export const postRouter = createTRPCRouter({
     });
     return post;
   }),
-  create: publicProcedure
+  create: protectedProcedure
     .input(z.object({ name: z.string().min(1), text: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
       await ctx.db.insert(posts).values({
@@ -22,7 +26,7 @@ export const postRouter = createTRPCRouter({
         text: input.text,
       });
     }),
-  update: publicProcedure
+  update: protectedProcedure
     .input(z.object({ id: z.number(), text: z.string().min(1) }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
@@ -30,7 +34,7 @@ export const postRouter = createTRPCRouter({
         .set({ text: input.text })
         .where(eq(posts.id, input.id));
     }),
-  delete: publicProcedure
+  delete: protectedProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input, ctx }) => {
       await ctx.db.delete(posts).where(eq(posts.id, input.id));
